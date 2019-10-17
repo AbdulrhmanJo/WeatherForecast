@@ -1,0 +1,314 @@
+// --------var---------
+//colors:
+$primary-color: #8572fc;
+$secondary-color-1: #28e0ae;
+$secondary-color-2: #ff0090;
+$secondary-color-3: #0090ff;
+$secondary-color-4: #dc0000;
+$secondary-color-5: #ffae00;
+$secondary-color-6: #0051ff;
+$font-color-1: #fff;
+$font-color-2: #130e51;
+
+//---------mixins--------
+@mixin shadow($color) {
+  box-shadow: 0rem 4rem 2rem -2rem rgba($color, 0.3);
+}
+// ----------------- base ------------------------
+
+html {
+  font-size: 62.5%; //  1rem = 10px
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  line-height: 1;
+}
+
+//grid container
+.container {
+  display: grid;
+  grid-template-columns:
+    1fr repeat(4, [col-start] minmax(min-content, 15rem) [col-end])
+    1fr;
+
+  @media only screen and (max-width: 50em) {
+    grid-template-columns:
+      1fr repeat(2, [col-start] minmax(min-content, 15rem) [col-end])
+      1fr;
+  }
+
+  grid-row-gap: 2rem;
+  grid-column-gap: 4rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.city-info {
+  grid-column: col-start 2 / col-end 3;
+  @media only screen and (max-width: 50em) {
+    grid-column: col-start 1 / col-end 2;
+  }
+  grid-row: 2/3;
+
+  .name {
+    border: none;
+    width: 35rem;
+    font-size: 2rem;
+    text-align: center;
+    color: $font-color-2;
+    padding: 0rem 1rem;
+    font-weight: 700;
+    padding: 0.5rem 2rem;
+    transition: border-bottom 0.2s;
+
+    &::selection {
+      background-color: rgba(gray, 0.5);
+    }
+    &::placeholder {
+      font-weight: 400;
+    }
+
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid rgba(gray, 0.2);
+    }
+  }
+}
+
+.search {
+  grid-row: 2/3;
+  @media only screen and (max-width: 50em) {
+    grid-column: col-start 2 / col-end 2;
+    justify-self: end;
+  }
+  grid-column: col-start 4 / col-end 4;
+  justify-self: start;
+  margin-left: -2rem;
+  transition: all 0.2s;
+  align-self: center;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &-icon {
+    display: block;
+    width: 2rem;
+  }
+}
+
+.main-card {
+  @media only screen and (max-width: 50em) {
+    grid-column: col-start 1 / col-end 2;
+  }
+  grid-row: 4/5;
+  grid-column: col-start 1 / col-end 4;
+  width: 35rem;
+  background-color: $primary-color;
+  border-radius: 15px;
+  color: white;
+  padding: 2rem;
+  box-shadow: 0rem 1rem 2rem rgba(black, 0.1);
+  justify-self: center;
+
+  &-status {
+    font-weight: 400;
+    margin-top: -3rem;
+    margin-bottom: 2rem;
+  }
+
+  &-degree {
+    font-size: 3rem;
+    color: rgb(255, 255, 255);
+    margin-bottom: 1rem;
+  }
+
+  // &-weather{
+  //   // height: 15rem;
+  //   // width: 23rem;
+  //   // background: #0051ff;
+  //   overflow: hidden;
+  // }
+
+  &-icon {
+    filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(213deg)
+      brightness(101%) contrast(101%);
+    width: 20rem;
+  }
+}
+
+.heading {
+  grid-row: 5/6;
+  grid-column: col-start 1 / col-end 1;
+  color: $font-color-2;
+  text-transform: capitalize;
+  align-self: start;
+}
+
+.nav {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  justify-self: center;
+  font-size: 1.3rem;
+  grid-row: 3/4;
+  grid-column: col-start 2 / col-end 3;
+  @media only screen and (max-width: 50em) {
+    grid-column: col-start 1 / col-end 2;
+    justify-self: center;
+  }
+
+  &-item {
+    margin-right: 1rem;
+    text-transform: capitalize;
+    padding: 1rem;
+    color: $font-color-2;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      background-color: rgba(gray, 0.1);
+      border-radius: 1rem;
+      transform: scale(1.05);
+    }
+  }
+
+  .selected {
+    background-color: rgba(gray, 0.09);
+    border-radius: 1rem;
+    color: #5d50fe;
+  }
+}
+
+.card {
+  grid-row: 6/7;
+  width: 15rem;
+  border-radius: 1rem;
+  color: $font-color-1;
+  padding: 2rem;
+  font-weight: 400;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &-day {
+    margin-bottom: rem;
+    text-transform: capitalize;
+    font-size: 1.7rem;
+    font-weight: 700;
+  }
+
+  &-status {
+    font-size: 1.7rem;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+  }
+  &-degree {
+    font-size: 1.9rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-around;
+
+    &-min {
+      color: rgba(255, 255, 255, 0.589);
+    }
+  }
+
+  &-icon {
+    filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(213deg)
+      brightness(101%) contrast(101%);
+
+    width: 10rem;
+  }
+
+  &-1 {
+    grid-column: col-start 1 / col-end 1;
+    background-color: $secondary-color-1;
+    @include shadow($secondary-color-1);
+  }
+  &-2 {
+    grid-column: col-start 2 / col-end 2;
+    background-color: $secondary-color-2;
+    @include shadow($secondary-color-2);
+  }
+  &-3 {
+    @media only screen and (max-width: 50em) {
+      grid-row: 7 / 8;
+      grid-column: col-start 1 / col-end 1;
+    }
+    grid-column: col-start 3 / col-end 3;
+    background-color: $secondary-color-3;
+    @include shadow($secondary-color-3);
+  }
+  &-4 {
+    @media only screen and (max-width: 50em) {
+      grid-row: 7 / 8;
+      grid-column: col-start 2 / col-end 2;
+    }
+    grid-column: col-start 4 / col-end 4;
+    background-color: $secondary-color-5;
+    @include shadow($secondary-color-5);
+  }
+}
+
+.copyright {
+  grid-row: 10/11;
+  grid-column: 1/-1;
+  font-size: 1rem;
+  margin-bottom: 4rem;
+}
+
+//spinner
+.spinner {
+  margin: 7rem auto 7rem;
+  width: 7rem;
+  text-align: center;
+  & > div {
+    width: 1.8rem;
+    height: 1.8rem;
+    background-color: #fff;
+
+    border-radius: 100%;
+    display: inline-block;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+
+  & .bounce1 {
+    animation-delay: -0.32s;
+  }
+
+  & .bounce2 {
+    animation-delay: -0.16s;
+  }
+}
+
+.spinner > div {
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
